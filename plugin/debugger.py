@@ -30,6 +30,7 @@ import socket
 import base64
 import traceback
 import xml.dom.minidom
+import urllib
 
 #######################################################################################################################
 #                                                                                                                     #
@@ -536,6 +537,11 @@ class DebugUI:
     if file == self.file and self.line == line:
       return
 
+    # there are bug with path string in Windows system, so if this is Windows, remove the initial '/'
+    file = urllib.unquote(file)
+    if os.name == 'nt' and file[0] == "/":
+      file = file[1:]
+
     nextsign = self.next_sign()
 
     if file != self.file:
@@ -1005,8 +1011,6 @@ class Debugger:
       self.ui.set_srcview(self.stacks[self.curstack]['file'], self.stacks[self.curstack]['line'])
 
   def mark(self, exp = ''):
-    if self.running == 0:
-      raise NotRunningException
     (row, rol) = vim.current.window.cursor
     file       = vim.current.buffer.name
 
@@ -1173,8 +1177,6 @@ def debugger_property(name = ''):
 def debugger_mark(exp = ''):
   try:
     debugger.mark(exp)
-  except NotRunningException:
-    print "Debugger is not running\n"
   except:
     unknown_exception_handler()
 
@@ -1249,3 +1251,12 @@ error_msg = { \
     998 : """An internal exception in the debugger occurred""",                                                                                                                \
     999 : """Unknown error """                                                                                                                                                 \
 }
+
+
+
+#################################################################################################################
+#
+# utilitiy function
+#
+#################################################################################################################
+

@@ -1,4 +1,26 @@
 ###############################################################################
+1.0.2 changelog from 1.0.1
+###############################################################################
+
+changes     :
+- add '!' on function declaration to override any declarated function with the
+  same name thx to Michael Bahnmiller
+- add new path to check for a windows system. If you are using windows put the
+  files (debugger.vim and debugger.vim) your $VIM/vimfiles/plugin this usually 
+  "C:\Program Files\Vim\vimfiles\plugin" thx to ning
+
+bug fixes   :
+- bugs on windows system regarding the file path (from xdebug xml message)
+  which append '/' at the beginning, thx to Ning for notified me
+- cannot set breakpoint when the debugger isn't running (my bad) thx to Michael
+  Bahnmiller
+
+known issue :
+- do not reorder tab while debugging session is running!, unless you want to 
+  see crazy things
+
+
+###############################################################################
 1.0.1 changelog from 1.0.0
 ###############################################################################
 

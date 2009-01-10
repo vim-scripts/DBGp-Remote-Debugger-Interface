@@ -8,7 +8,7 @@
 "   Maintainer: Hadi Zeftin <slack.dna <at> gmail.com>
 "  Last Change: January 7, 2009
 "          URL: http://www.vim.org/scripts/script.php?script_id=2508
-"      Version: 1.0.1
+"      Version: 1.0.2
 "               Originally written by Seung Woo Shin <segv <at> sayclub.com>
 "               at	http://www.vim.org/scripts/script.php?script_id=1152
 "               Developed by Sam Ghods <sam <at> box.net>
@@ -121,6 +121,8 @@ if filereadable($VIMRUNTIME."/plugin/debugger.py")
   pyfile $VIMRUNTIME/plugin/debugger.py
 elseif filereadable($HOME."/.vim/plugin/debugger.py")
   pyfile $HOME/.vim/plugin/debugger.py
+elseif filereadable($VIM."/vimfiles/plugin/debugger.py")
+  pyfile $VIM/vimfiles/plugin/debugger.py
 else
   call confirm('debugger.vim: Unable to find debugger.py. Place it in either your home vim directory or in the Vim runtime directory.', 'OK')
 endif
@@ -185,11 +187,11 @@ endif
 " Debugging functions
 "=============================================================================
 
-function s:startDebugging()
+function! s:startDebugging()
         python debugger_run()
 endfunction
 
-function s:stopDebugging()
+function! s:stopDebugging()
         python debugger_quit()
         " if your code goes weird re-source your syntax file, or any other
         " cleanups here
